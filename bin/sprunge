@@ -1,4 +1,11 @@
 #!/bin/sh
+#go to cap.sprunge.us and set up a site with cap and set up a page
+#and then run their cap script
+
+#your page name
+PAGE=lhejazi
+#password
+PASSWD=1234
 
 if [ -t 1 ] && [ $# -lt 1 ]
 then cat <<USAGE > /dev/stderr
@@ -27,6 +34,13 @@ else
 fi
 
 link=`curl -s -F "sprunge=$source" 'http://sprunge.us'`
+
+#no link was produced, I am assuming this is an image
+if [ ${#link} -eq 0 ]
+then link=`curl -s -F "ver=2" -F "passwd=$PASSWD" -F "img=@$filename" "cap.sprunge.us/$PAGE"`
+	echo $link
+	exit 0
+fi
 
 if [ $type ]
 then echo "$link?$type"
