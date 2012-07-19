@@ -1,4 +1,4 @@
 conf
 ====
 
-configuration files
+handy configuration files
