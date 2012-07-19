@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# your page name
+PAGE=lhejazi
+# password (don't use your google pass, this is way insecure)
+PASSWD=1234
+
+[ "$PAGE" ] && [ "$PASSWD" ] || {
+  echo "need PAGE and PASSWD. please edit me."
+  exit
+}
+
+[ $1 ] && sleep $1
+
+linux() {
+ #import -display :0 -window root -quality 50 /tmp/$$.jpg || {
+ scrot -q 50 /tmp/$$.jpg || {
+  echo "pls install scrot or imagemagick, thx."
+  echo "pls install imagemagick, thx."
+  exit
+ }
+}
+
+darwin() {
+ /usr/sbin/screencapture -C /tmp/$$.jpg
+ sips -s format jpeg -s formatOptions 50 --out /tmp/$$.jpg /tmp/$$.jpg >/dev/null
+}
+
+case "$(uname)" in
+ Darwin)darwin $*;;
+ Linux)linux $*;;
+esac
+
+curl -F "ver=2" -F "passwd=$PASSWD" -F "img=@/tmp/$$.jpg" cap.sprunge.us/$PAGE
+rm /tmp/$$.jpg
