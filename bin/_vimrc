@@ -26,3 +26,22 @@ set t_RV=               " http://bugs.debian.org/608242, http://groups.google.co
 set spell		" set the spell check on
 colorscheme slate	" slate colorscheme
 set background=dark
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("gui_macvim")
+  macmenu &File.New\ Tab key=<nop>
+  imap <C-j> <Down>
+  imap <C-h> <Left>
+  imap <C-k> <Up>
+  imap <C-l> <Right>
+  map <c-s> :w<cr>
+endif
+
+imap <C-j> <Down>
+imap <C-h> <Left>
+imap <C-k> <Up>
+imap <C-l> <Right>
+map <c-s> :w<cr>
