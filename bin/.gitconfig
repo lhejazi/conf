@@ -1,0 +1,9 @@
+[user]
+	name = Leila Hejazi
+	email = lhejazi@saymedia.com
+[alias]
+	tree = log --graph --pretty=oneline --abbrev-commit --decorate --color --all
+	local = log --pretty=oneline @{u}..HEAD
+
+[core]
+	editor = vi
