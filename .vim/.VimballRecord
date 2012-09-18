@@ -1,0 +1,2 @@
+Align.vba: call delete('/home/leila/.vim/plugin/AlignPlugin.vim')|call delete('/home/leila/.vim/plugin/AlignMapsPlugin.vim')|call delete('/home/leila/.vim/plugin/cecutil.vim')|call delete('/home/leila/.vim/doc/Align.txt')|call delete('/home/leila/.vim/autoload/Align.vim')|call delete('/home/leila/.vim/autoload/AlignMaps.vim')
+checksyntax.vba: call delete('/home/leila/.vim/doc/checksyntax.txt')|call delete('/home/leila/.vim/plugin/checksyntax.vim')|call delete('/home/leila/.vim/autoload/checksyntax.vim')
