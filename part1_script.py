@@ -18,9 +18,21 @@ br.select_form(nr=0)
 # print currently selected form (don't call .submit() on this, use br.submit())
 print br.form
 
-br["uniqname"] = "nastrein"
-br["project"] = ["project1"]
+html = br.response().get_data().replace("<select name=\"project\"></select>", "<select name=\"project\"> <option name=\"project1\"> project1 </option> </select>")
+response = mechanize.make_response(
+		    html, [("Content-Type", "text/html")],
+		    "http://ec2-54-245-12-74.us-west-2.compute.amazonaws.com/sqlinject1/", 200, "OK")
+
+br.set_response(response)
+
+br.select_form(nr=0)
 print br["project"]
+
+br["uniqname"] = "goleary"
+br["project"] = ["project1"]
+br["grade"] = "F"
+response3 = br.submit()
+#print br.form
 
 
 
