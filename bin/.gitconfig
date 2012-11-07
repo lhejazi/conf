@@ -1,5 +1,5 @@
 [user]
-	name = Leila Hejazi
+	name = NazHejaz
 	email = lhejazi@saymedia.com
 [alias]
 	tree = log --graph --pretty=oneline --abbrev-commit --decorate --color --all
