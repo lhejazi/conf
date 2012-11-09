@@ -1,0 +1,21 @@
+{% extends "simplesearch/base.html" %}
+
+{% block content %}
+<h1>EECS 398 Search</h1>
+
+<form action="/search">
+  <label for="xssdefense">XSS Defense:</label>
+  <select name="xssdefense">
+    <option value="0">No defense</option>
+    <option value="1">Remove &lt;script</option>
+    <option value="2">Remove quotes and semicolons</option>
+    <option value="3">Remove several tags</option>
+    <option value="4">Remove more tags</option>
+    <option value="5">Django XSS filter (extra credit)</option>
+  </select><br>
+
+  <input type="text" name="q" title="398 Search" size="45"></input>
+  <input type="submit" value="Go!"></input>
+
+</form>
+{% endblock %}

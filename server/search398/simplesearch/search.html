@@ -1,0 +1,33 @@
+{% extends "simplesearch/base.html" %}
+{% load switch %}
+{% load xss_filters %}
+
+{% block title %}EECS 398 Search Results{% endblock %}
+
+{% block content %}
+<h1>EECS 398 Search Results</h1>
+
+<p>XSS Defense: {{xssdefense}}</p>
+<h2>You searched for: 
+{% switch xssdefense %}
+  {% case 0 %}
+{{term|safe}}
+  {% case 1 %}
+{{term|remove_opening_script|safe}}
+  {% case 2 %}
+{{term|remove_js_punctuation|safe}}
+  {% case 3 %}
+{{term|remove_several_tags|safe}}
+  {% case 4 %}
+{{term|remove_more_tags|safe}}
+  {% case 5 %}
+{{term}}
+  {% else %}
+{{term|extra_defense:xssdefense|safe}}
+{% endswitch %}
+</h2>
+<p>No results found (because this doesn't actually search).</p>
+<p><a href="/">Search again</a></p>
+{% endblock %}
+</body>
+</html>

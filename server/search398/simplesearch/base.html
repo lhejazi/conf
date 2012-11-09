@@ -1,0 +1,105 @@
+<html>
+<head>
+  <style>
+    body {margin:0}
+    #wrap {width:800px; margin: 0 auto}
+    #content {float:left; padding:10px;width:600px}
+    #sidebar {float:right; padding:10px; width:160px}
+  </style>
+  <title>{% block title %}EECS 398 Search Engine{% endblock %}</title>
+  <script type="text/javascript">
+    // Fancy AJAX business for the login page.
+    // To students: it is not necessarily important that you
+    // understand the details of all this. It does not support IE.
+    var xhr = false;
+
+    function getPage(uri, callback) {
+      xhr = new XMLHttpRequest();
+      if (xhr.overrideMimeType) {
+        xhr.overrideMimeType('text/html');
+      }
+      xhr.onreadystatechange = callback;
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    }
+
+    function logOut() {
+      getPage('/logout&csrfdefense={{csrfdefense}}', actuallyReplaceSidebar);
+    }
+
+    function postForm(uri, parameters, callback) {
+      xhr = new XMLHttpRequest();
+      if (xhr.overrideMimeType) {
+        xhr.overrideMimeType('text/html');
+      }
+      xhr.onreadystatechange = callback;
+      xhr.open('POST', uri, true);
+      xhr.setRequestHeader('Content-type',
+                           'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Content-length', parameters.length);
+      xhr.setRequestHeader('Connection', close);
+      xhr.send(parameters);
+    }
+
+    function actuallyReplaceSidebar() {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          document.getElementById('sidebar').innerHTML = xhr.responseText;
+        } else {
+          alert('There was a network problem with the login form.');
+        }
+      }
+    }
+
+    function urlEncodeById(id) {
+      var elt = document.getElementById(id);
+      if (elt) {
+        return encodeURIComponent(elt.value);
+      } else {
+        return elt;
+      }
+    }
+
+    function replaceSidebar() {
+      var encoded_user = urlEncodeById('user');
+      var encoded_password = urlEncodeById('password');
+      var encoded_sqlfilter = urlEncodeById('sqlfilter');
+      var query_string = 'user=' + encoded_user + '&password=' +
+          encoded_password + '&login_action=' + login_action +
+          '&sqlfilter=' + encoded_sqlfilter;
+      if (secretanswer !== undefined) {
+        query_string += '&secretanswer=' + encodeURIComponent(secretanswer);
+      }
+
+      var encoded_csrfcounter = urlEncodeById('csrfcounter');
+      if (encoded_csrfcounter) {
+        query_string += '&csrfcounter=' + encoded_csrfcounter;
+      } 
+
+      var encoded_csrfdefense = urlEncodeById('csrfdefense');
+      var post_destination = '/login?csrfdefense=' + encoded_csrfdefense;
+      postForm(post_destination, query_string, actuallyReplaceSidebar);
+    }
+
+    var login_action;
+    var secretanswer;
+
+  </script>
+</head>
+
+<body>
+  <div id="wrap">
+    <div id="sidebar">
+      {% if user %}
+        {% include "simplesearch/history.html" %}
+      {% else %}
+        {% include "simplesearch/login.html" %}
+      {% endif %}
+    </div>
+
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</body>
+</html>

