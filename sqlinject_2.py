@@ -1,9 +1,6 @@
 #mibailey
 #\' OR 1; --
-
 #solution for part1::part2
-
-import re
 import mechanize
 
 br = mechanize.Browser()

