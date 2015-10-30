@@ -1,0 +1,12 @@
+[user]
+	name = NazHejaz
+	email = leila855@gmail.com
+[alias]
+	tree = log --graph --pretty=oneline --abbrev-commit --decorate --color --all
+	local = log --pretty=oneline @{u}..HEAD
+[core]
+	#normally this would be editor = vi
+	#but i am currently having problems overwriting
+	#my default vi with MacVim :/
+
+	editor = /Applications/MacVim.app/Contents/MacOS/Vim 
