@@ -67,9 +67,15 @@ let g:syntastic_check_on_wq = 0  " check on disk write
 
 filetype on             " detect type of file
 filetype indent on      " load indent file for specific file type
+filetype plugin on 
 
 set t_Co=256
 set spell		" set the spell check on
+
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType jade setlocal shiftwidth=2 tabstop=2
+autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
+autocmd FileType coffeescript setlocal shiftwidth=2 tabstop=2
 
 
 " Add the virtualenv's site-packages to vim path
