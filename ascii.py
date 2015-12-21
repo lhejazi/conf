@@ -34,16 +34,19 @@ def write_to_file(new_image, filename):
         fp.write(new_image)
 
 if __name__ == '__main__':
+    # To generate ascii art from a photo, run the following:
+    # $ python ascii.py <input-image> [output-filename] [width]
+
     import sys
     
     filename = sys.argv[1]
-    new_width = int(sys.argv[2])
-    outfile = sys.argv[3]
+    outfile = sys.argv[2] if len(sys.argv) > 2 else 'out.txt'
 
     # Convert to grayscale
     image = Image.open(filename).convert('L')
-    
-    # resize
+
+    # resize if necessary
+    new_width = int(sys.argv[3]) if len(sys.argv) > 3 else image.size[0]
     i = size_image(image, new_width)
     width, height = i.size
 
@@ -56,6 +59,7 @@ if __name__ == '__main__':
     # write out to file
     write_to_file(new_image, outfile)
 
+    print "Ascii photo successfully printed to", outfile
 
 
 
